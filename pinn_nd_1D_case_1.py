@@ -155,6 +155,7 @@ def set_pinn_nd():
     )
 
     net = dde.nn.pytorch.FNN([1] + 2 * [50] + [2], "tanh", "Glorot normal")
+    # Use apply_output_transform if using hard-constraint, otherwise it's a soft-constraint
     # net.apply_output_transform(output_transform)
 
     model = dde.Model(data, net)
@@ -446,7 +447,11 @@ def main():
     phi1_left_true = 2 ** 0.5 * np.exp(- np.pi / 2) * np.cos(np.pi / 2 * x)
     phi1_right_true = np.exp(- np.pi * x)
     phi1_true = np.concatenate((phi1_left_true[:50], phi1_right_true[50:]), axis=0)
+    
+    # Run FC-PINNs for 1D Case 1
     # phi1_pred_soft, phi1_core, phi1_cladding, keff_pred = set_pinn_nd()
+
+    
     # # keff_true = 0.9
     # # keff_pred_hard = 0.9006
     # # keff_pred_soft = 0.9003
