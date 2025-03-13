@@ -223,6 +223,8 @@ def set_pinn_nd():
     )
 
     net = dde.nn.pytorch.FNN([2] + 2 * [50] + [2], "tanh", "Glorot normal")
+
+    # Use apply_output_transform if using hard-constraint, otherwise it's a soft-constraint
     # net.apply_output_transform(output_transform)
 
     model = dde.Model(data, net)
@@ -734,10 +736,15 @@ def main():
     y_points = 101
     x = np.linspace(left, right, x_points)
     y = np.linspace(down, up, y_points)
+
+    # The numerical results for 2D Case 1
     # phi1_true, keff_true = set_ND_1group_para_2D_case_1()
     # np.save('ndpinn_2D_example_1_true.npy', phi1_true)
     # print("keff_true =", keff_true)
+
+    # Run FC-PINNs for 2D Case 1 (Case 3 in total)
     # phi1_pred_soft, phi1_core, phi1_cladding, keff_pred = set_pinn_nd()
+    
     # # keff_true = 0.49227863989246945
     # # keff_pred_hard = 0.4922
     # # keff_pred_soft = 0.4913
